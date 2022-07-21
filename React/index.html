@@ -5,43 +5,54 @@
 
 <script>
 class App extends React.Component {
-	render(){
-  	return (
-    <div>
-      <p>{this.props.name}</p>
-      <button>Change Name</button>
-    </div>
-	);
-
+	
+    constructor(props){
+        super(props);
+        this.state = {
+          name: props.name
+        };
+     }
+  
+      render(){
+        return (
+        <div>
+          <p>{this.state.name}</p>
+          <button onClick={this.changeName.bind(this)}>Change Name</button>
+        </div>
+          );
+           }
+      changeName(){
+          this.setState({
+            name: 'Aaron'
+        });
+      }
+      
   }
-}
-
-ReactDOM.render(<App name="Eric"/>, 
-document.querySelector("#app"));
-
-//function App(props) {
-	//return (
-   // <div>
-    //  <p>{props.name}</p>
-    //  <button>Change Name</button>
-   // </div>
-//	); 
-//}
-
-
-
-//let name = 'Eric';
-//ReactDOM.render(<p>Eric</p>, document.querySelector("#app"))
-//const element = React.createElement('p', null, 'Eric');
-//function changeName(){
-	//name= 'Aaron';
-  //const element = (<div>
-  //<p>{name}</p>
-  //<button onClick={changeName}>Change Name</button>
-//</div>
-//);
-//ReactDOM.render(element, document.querySelector("#app"));
-//}
+  
+  ReactDOM.render(<App name="Eric"/>, 
+  document.querySelector("#app"));
+  
+  //function App(props) {
+      //return (
+     // <div>
+      //  <p>{props.name}</p>
+      //  <button>Change Name</button>
+     // </div>
+  //	); 
+  //}
+  //let name = 'Eric';
+  //ReactDOM.render(<p>Eric</p>, document.querySelector("#app"))
+  //const element = React.createElement('p', null, 'Eric');
+  //function changeName(){
+      //name= 'Aaron';
+    //const element = (<div>
+    //<p>{name}</p>
+    //<button onClick={changeName}>Change Name</button>
+  //</div>
+  //);
+  //ReactDOM.render(element, document.querySelector("#app"));
+  //}
+  
 
 
 </script>
