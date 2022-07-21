@@ -4,10 +4,31 @@
 <div id="app"></div>
 
 <script>
-const name = 'Eric'
+let name = 'Eric';
+function App() {
+	
+  return (
+    <div>
+      <p>{name}</p>
+      <button>Change Name</button>
+    </div>
+	);
+
+}
+
 //ReactDOM.render(<p>Eric</p>, document.querySelector("#app"))
 //const element = React.createElement('p', null, 'Eric');
-const element = <p>Eric</p>;
-ReactDOM.render(element, document.querySelector("#app"));
+//function changeName(){
+	//name= 'Aaron';
+  //const element = (<div>
+  //<p>{name}</p>
+  //<button onClick={changeName}>Change Name</button>
+//</div>
+//);
+//ReactDOM.render(element, document.querySelector("#app"));
+//}
+
+
+ReactDOM.render(<App/>, document.querySelector("#app"));
 
 </script>
