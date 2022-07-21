@@ -1,21 +1,36 @@
-<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script crossorigin src="https://unpkg.com/react@15/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@15/umd/react-dom.development.js"></script>
 
 <div id="app"></div>
 
 <script>
-let name = 'Eric';
-function App() {
-	
-  return (
+class App extends React.Component {
+	render(){
+  	return (
     <div>
-      <p>{name}</p>
+      <p>{this.props.name}</p>
       <button>Change Name</button>
     </div>
 	);
 
+  }
 }
 
+ReactDOM.render(<App name="Eric"/>, 
+document.querySelector("#app"));
+
+//function App(props) {
+	//return (
+   // <div>
+    //  <p>{props.name}</p>
+    //  <button>Change Name</button>
+   // </div>
+//	); 
+//}
+
+
+
+//let name = 'Eric';
 //ReactDOM.render(<p>Eric</p>, document.querySelector("#app"))
 //const element = React.createElement('p', null, 'Eric');
 //function changeName(){
@@ -28,7 +43,5 @@ function App() {
 //ReactDOM.render(element, document.querySelector("#app"));
 //}
 
-
-ReactDOM.render(<App/>, document.querySelector("#app"));
 
 </script>
