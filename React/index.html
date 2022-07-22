@@ -1,7 +1,10 @@
 <script crossorigin src="https://unpkg.com/react@15/umd/react.development.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@15/umd/react-dom.development.js"></script>
+<link rel="stylesheet" href="css.css">
+
 
 <div id="app"></div>
+
 
 <script>
 class App extends React.Component {
@@ -17,19 +20,24 @@ class App extends React.Component {
     render(){
     
     	let updatePara = '';
+      let nameParaClass = '';
       if (this.state.name != this.props.name){
-      	updatePara = <p>Name updated</p>
+      	updatePara = <p>Name updated</p>;
+        nameParaClass = 'updated';
       }
       
       let list = this.state.elements.map(
       	(el) => {
-        	return <li key={el}>{el}</li>
+        	const liStyle = {
+      			backgroundColor: el % 2 == 0 ? 'yellow' : 'red'
+      		};
+        	return <li key={el} style={ liStyle  }>{el}</li>;
         }
       );
     
       return (
       <div>
-        <p>{this.state.name}</p>
+        <p className={nameParaClass}>{this.state.name}</p>
         {updatePara}
         <button onClick={this.changeName.bind(this)}>Change Name</button>
         <button onClick={this.addElement.bind(this)}>New element</button>
@@ -77,6 +85,5 @@ document.querySelector("#app"));
 //);
 //ReactDOM.render(element, document.querySelector("#app"));
 //}
-
 
 </script>
