@@ -23,30 +23,78 @@ class App extends React.Component {
   constructor(props){
      super(props);
      this.state = {
-       hobbies:['Party','Gaming','Party'],
-       message: 'Mi list of hobbies: '
+       hobbies:['Basket','Gaming','Party'],
+       message: 'Mi list of hobbies: ',
+       newHobbyInput: ''
      };
   }
+
  
+ removeHobby(index){
+   const oldHobbies = this.state.hobbies;
+   
+   this.setState(
+     {
+       hobbies: oldHobbies.filter(
+         (hb,i) => { return i != index}	
+       )
+     }
+   );
+   
+ }
  
+ addHobby(){
+   if(this.state.newHobbyInput != ''){
+     const oldHobbies = this.state.hobbies;
+
+     this.setState({
+       hobbies: oldHobbies.concat(this.state.newHobbyInput)
+     });
+
+     this.state.newHobbyInput = '';
+   
+   }else{
+     alert('Insert a hobby');
+   }
+   
  
+ }
+ changeHobbyInput(event){
+ 
+   this.setState({
+     newHobbyInput: event.target.value
+   });
+ }
+ 
+   
  render() {
  
    let listHobbies = this.state.hobbies.map(
-   (hobby) => {
-     return <li >{hobby}</li>;
-   }
+     (hobby, index) => {
+       return <li key={index} onClick={() => this.removeHobby(index)}>{hobby}</li>;
+     }
+   );
    
- );
+   
+   
    return(
      <div>
        <p>{this.state.message +' '+ this.state.hobbies.length}</p>
+       
+       <input 
+         type='text' 
+         value={this.state.newHobbyInput}
+         onChange={this.changeHobbyInput.bind(this)}>
+       </input>
+       <button onClick={this.addHobby.bind(this)}>Add hobby</button>
+       
        <ul>{listHobbies}</ul>
+       
      </div>
    );
  }
 }
 
-ReactDOM.render(<App />, document.querySelector("#app"))
+ReactDOM.render(<App/>, document.querySelector("#app"))
 
 </script>
