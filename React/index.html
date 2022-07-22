@@ -6,53 +6,77 @@
 <script>
 class App extends React.Component {
 	
-    constructor(props){
-        super(props);
-        this.state = {
-          name: props.name
-        };
-     }
-  
-      render(){
-        return (
-        <div>
-          <p>{this.state.name}</p>
-          <button onClick={this.changeName.bind(this)}>Change Name</button>
-        </div>
-          );
-           }
-      changeName(){
-          this.setState({
-            name: 'Aaron'
-        });
+  constructor(props){
+      super(props);
+      this.state = {
+        name: props.name,
+        elements:[]
+      };
+   }
+
+    render(){
+    
+    	let updatePara = '';
+      if (this.state.name != this.props.name){
+      	updatePara = <p>Name updated</p>
       }
       
-  }
-  
-  ReactDOM.render(<App name="Eric"/>, 
-  document.querySelector("#app"));
-  
-  //function App(props) {
-      //return (
-     // <div>
-      //  <p>{props.name}</p>
-      //  <button>Change Name</button>
-     // </div>
-  //	); 
-  //}
-  //let name = 'Eric';
-  //ReactDOM.render(<p>Eric</p>, document.querySelector("#app"))
-  //const element = React.createElement('p', null, 'Eric');
-  //function changeName(){
-      //name= 'Aaron';
-    //const element = (<div>
-    //<p>{name}</p>
-    //<button onClick={changeName}>Change Name</button>
-  //</div>
-  //);
-  //ReactDOM.render(element, document.querySelector("#app"));
-  //}
-  
+      let list = this.state.elements.map(
+      	(el) => {
+        	return <li key={el}>{el}</li>
+        }
+      );
+    
+      return (
+      <div>
+        <p>{this.state.name}</p>
+        {updatePara}
+        <button onClick={this.changeName.bind(this)}>Change Name</button>
+        <button onClick={this.addElement.bind(this)}>New element</button>
+        <ul>
+          {list}
+        </ul>
+      </div>
+    	);
+ 		}
+    changeName(){
+    	this.setState({
+      	name: 'Aaron'
+      });
+    }
+    
+    addElement(){
+    	const oldElements = this.state.elements;
+    	this.setState({
+      	elements: oldElements.concat(oldElements.length + 1)
+      });
+    }
+    
+}
+
+ReactDOM.render(<App name="Eric"/>, 
+document.querySelector("#app"));
+
+//function App(props) {
+	//return (
+   // <div>
+    //  <p>{props.name}</p>
+    //  <button>Change Name</button>
+   // </div>
+//	); 
+//}
+//let name = 'Eric';
+//ReactDOM.render(<p>Eric</p>, document.querySelector("#app"))
+//const element = React.createElement('p', null, 'Eric');
+//function changeName(){
+	//name= 'Aaron';
+  //const element = (<div>
+  //<p>{name}</p>
+  //<button onClick={changeName}>Change Name</button>
+//</div>
+//);
+//ReactDOM.render(element, document.querySelector("#app"));
+//}
 
 
 </script>
