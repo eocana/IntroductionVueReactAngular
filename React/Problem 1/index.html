@@ -17,3 +17,36 @@
   8) Outsource your hobbies (the <li> elements) into a re-usable component
 -->
 
+<script>
+class App extends React.Component {
+	
+  constructor(props){
+     super(props);
+     this.state = {
+       hobbies:['Party','Gaming','Party'],
+       message: 'Mi list of hobbies: '
+     };
+  }
+ 
+ 
+ 
+ render() {
+ 
+   let listHobbies = this.state.hobbies.map(
+   (hobby) => {
+     return <li >{hobby}</li>;
+   }
+   
+ );
+   return(
+     <div>
+       <p>{this.state.message +' '+ this.state.hobbies.length}</p>
+       <ul>{listHobbies}</ul>
+     </div>
+   );
+ }
+}
+
+ReactDOM.render(<App />, document.querySelector("#app"))
+
+</script>
