@@ -22,105 +22,112 @@
   }
 </style>
 <script>
+function Hobby(props){
+	return (<li  onClick= { () => { props.hobbyClick(props.hobbyIndex) } }>{props.hobbyName}</li>);
+}
 
 class App extends React.Component {
 	
-  constructor(props){
-     super(props);
-     this.state = {
-       hobbies:['Basket','Gaming','Party'],
-       message: 'Mi list of hobbies: ',
-       newHobbyInput: '',
-       infoDel: false
-     };
+   constructor(props){
+      super(props);
+      this.state = {
+        hobbies:['Basket','Gaming','Party'],
+        message: 'Mi list of hobbies: ',
+        newHobbyInput: '',
+        infoDel: false
+      };
+   }
+
+  
+  removeHobby(index){
+  	const oldHobbies = this.state.hobbies;
+  	
+    this.setState(
+    	{
+      	hobbies: oldHobbies.filter(
+        	(hb,i) => { return i != index}
+        ),
+        infoDel: true
+      }
+    );
+  	
   }
+  
+  addHobby(){
+  	if(this.state.newHobbyInput != ''){
+    	const oldHobbies = this.state.hobbies;
 
- 
- removeHobby(index){
-   const oldHobbies = this.state.hobbies;
-   
-   this.setState(
-     {
-       hobbies: oldHobbies.filter(
-         (hb,i) => { return i != index}
-       ),
-       infoDel: true
-     }
-   );
-   
- }
- 
- addHobby(){
-   if(this.state.newHobbyInput != ''){
-     const oldHobbies = this.state.hobbies;
+      this.setState({
+        hobbies: oldHobbies.concat(this.state.newHobbyInput)
+      });
 
-     this.setState({
-       hobbies: oldHobbies.concat(this.state.newHobbyInput)
-     });
-
-     this.state.newHobbyInput = '';
-     this.state.infoDel = false;
-   
-   }else{
-     alert('Insert a hobby');
-   }
-   
- 
- }
- changeHobbyInput(event){
- 
-   this.setState({
-     newHobbyInput: event.target.value
-   });
-   
-   
- }
- 
-   
- render() {
- 
-   let listHobbies = this.state.hobbies.map(
-     (hobby, index) => {
-       return <li key={index} onClick={() => this.removeHobby(index)}>{hobby}</li>;
-     }
-   );
-   
-   let hobbyDeletedPara = '';
-   
-   if(this.state.infoDel){
-   
-     hobbyDeletedPara = <p>Hobby was deleted</p>;
-     
-   }else{
-     hobbyDeletedPara = '';
-   }
-   
-   let hobbyCounterStyle = {
-     color: this.state.hobbies.length > 3 ? 'red' : 'black'
-   }
-   
-   const hobbyCounterClass = this.state.hobbies.length > 3 ? 'multiple-hobbies' : ''
-   
-   return(
-     <div>
-       <p style={hobbyCounterStyle} className={hobbyCounterClass}>{this.state.message +' '+ this.state.hobbies.length}</p>
-       
-       <input 
-         type='text' 
-         value={this.state.newHobbyInput}
-         onChange={this.changeHobbyInput.bind(this)}>
-       </input>
-       <button onClick={this.addHobby.bind(this)}>Add hobby</button>
-       {hobbyDeletedPara}
-       
-       <ul>{listHobbies}</ul>
-       
-     </div>
-   );
- }
+      this.state.newHobbyInput = '';
+      this.state.infoDel = false;
+    
+    }else{
+    	alert('Insert a hobby');
+    }
+  	
+  
+  }
+  changeHobbyInput(event){
+  
+  	this.setState({
+    	newHobbyInput: event.target.value
+    });
+    
+    
+  }
+  
+    
+  render() {
+  
+  	let listHobbies = this.state.hobbies.map(
+      (hobby, index) => {
+        return <Hobby
+                key={index}
+                hobbyIndex={index}
+                hobbyName={hobby}
+                hobbyClick={this.removeHobby.bind(this)}/>
+        //<li key={index} onClick={() => this.removeHobby(index)}>{hobby}</li>;
+      }
+  	);
+    
+    let hobbyDeletedPara = '';
+  	
+    if(this.state.infoDel){
+    
+    	hobbyDeletedPara = <p>Hobby was deleted</p>;
+      
+    }else{
+    	hobbyDeletedPara = '';
+    }
+    
+    let hobbyCounterStyle = {
+    	color: this.state.hobbies.length > 3 ? 'red' : 'black'
+    }
+    
+    const hobbyCounterClass = this.state.hobbies.length > 3 ? 'multiple-hobbies' : ''
+    
+  	return(
+    	<div>
+    	  <p style={hobbyCounterStyle} className={hobbyCounterClass}>{this.state.message +' '+ this.state.hobbies.length}</p>
+        
+        <input 
+          type='text' 
+          value={this.state.newHobbyInput}
+          onChange={this.changeHobbyInput.bind(this)}>
+        </input>
+        <button onClick={this.addHobby.bind(this)}>Add hobby</button>
+        {hobbyDeletedPara}
+        
+        <ul>{listHobbies}</ul>
+        
+    	</div>
+    );
+  }
 }
 
 ReactDOM.render(<App/>, document.querySelector("#app"))
-
 
 </script>
